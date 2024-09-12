@@ -2,13 +2,17 @@
 
 # Uppreppa tills vi en person har vunnit tre gånger, den har vunnit allt
 
+# O
+
 from random import randint
 
 play_game = "J"
 player_one_score = 0 # värdet börjar på 0 
 player_two_score = 0
+game_round = 0
 
 while play_game.upper() == "J":
+    game_round += 1
     player_one_roll = randint(1,6)
     player_two_roll = randint(1,6)
 
@@ -21,6 +25,16 @@ while play_game.upper() == "J":
     else:
         print(f"No player won, it's a tie with the rolls: {player_one_roll}")
 
+
+    if player_one_score >= 2:
+        print(f"Player one won with {player_one_score} after {game_round} rounds, while Player two got {player_two_score}")
+        play_game = "n"
+    elif player_two_score >= 2:
+        print(f"Player two won with {player_two_score} after {game_round} rounds, while Player one got {player_one_score}")
+        play_game = "n"
+    elif game_round >= 3: # Om rundan passerat 3, så vinner ingen
+        print(f"{game_round} turns have passed and no player has won. Player one has {player_one_score} and player two has {player_two_score}")
+    
     play_game = input("Want to play again? [J/N]: ")
 
 # att göra, komma ihåg vilken spelare som vann
