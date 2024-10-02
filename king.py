@@ -12,7 +12,7 @@ player_two_score = 0
 game_round = 0
 
 dice_sides = int(input("How many sides of the dice do you want?: "))
-rounds_total # ändra detta så man kan välja hur många rundor
+# ändra detta så man kan välja hur många rundor
 while play_game.upper() == "J":
     game_round += 1
     player_one_roll = randint(1,dice_sides)
