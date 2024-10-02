@@ -35,7 +35,8 @@ while play_again.upper() == "Y":
     
     play_again = input("Want to play again? [Y/N]")
 
-
+# Göra klart extra sakerna
+# Göra så spelet slutar
 
 
 
