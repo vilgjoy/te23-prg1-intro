@@ -8,7 +8,6 @@ player_one_class = input("Pick your class: Rogue, Fighter, Paladin and Cleric")
 # Paladin wins the dice roll, they can choose to debuff player two and buff themself
 # Clerics deal continues holy dmg instead of regular dmg and it stacks every time they win the dice roll.
 player_two = input("What is your name player two?: ")
-player_two_class = input("Pick your class: Rogue, Fighter, Paladin and Cleric")
 
 if player_two == "":
     player_two = "Computer"
@@ -24,26 +23,57 @@ while play_again.upper() == "Y":
     player_two_life = 10
     game_round = 0
     play_again = "Y"
+    crit_chance = 0.25
+    crit_mult = 2.0
     while player_one_life > 0 and player_two_life > 0:
         game_round += 1
         print(f"Round {game_round}")
         player_one_roll = randint(1,6)
         player_two_roll = randint(1,6)
+        
 
-        if player_one_roll > player_two_roll:
-            player_one_dmg = randint(1,6)
+        if player_one_roll > player_two_roll and player_one_class == "Rogue":
+            player_one_dmg = randint(2,7)
             player_two_dmg = randint(1,6)
-            if player_two_dmg > player_two_dmg:
+            if player_one_dmg > player_two_dmg:
                 player_two_life -= (player_one_dmg - player_two_dmg)
                 print(f"{player_two} got stabbed by {player_one}, they have {player_two_life} HP left")
             else:
+                 print(f"{player_one} got the upper hand and pushed {player_two}, leaving {player_two} at a dissavantage")
+
+        elif player_two_roll > player_one_roll and player_one_class == "Rogue":
+            player_one_roll = randint(1,6)
+            if player_one_roll > player_two_roll:
+                player_one_dmg = randint(1,6)
+                player_two_dmg = randint(1,6)
+                if player_one_dmg > player_two_dmg:
+                    player_two_life -= (player_one_dmg - player_two_dmg)
+                    print(f"{player_two} got hit by an arrow by {player_one}, they have {player_two_life} HP left")
+            elif player_two_roll > player_one_roll:
+                player_one_dmg = randint(1,6)
+                player_two_dmg = randint(1,6)
+                if player_two_dmg > player_one_dmg:
+                    player_one_life -= (player_two_dmg - player_one_dmg)
+                    print(f"Even if {player_one} got the advantage, {player_two} got the upper hand and sliced {player_one} so they have {player_one_life} health left")
+            else:
                  print(f"{player_two} got the upper hand and pushed {player_one}, leaving {player_one} at a dissavantage")
 
-        elif player_two_roll > player_one_roll:
+
+
+        if player_one_roll > player_two_roll and player_one_class == "Fighter":
+            player_one_dmg = randint(1,4)
+            player_two_dmg = randint(1,6)
+            if player_one_dmg > player_two_dmg:
+                player_two_life -= (player_one_dmg * crit_mult - player_two_dmg)
+                print(f"{player_two} got stabbed by {player_one}, they have {player_two_life} HP left")
+            else:
+                 print(f"{player_one} got the upper hand and pushed {player_two}, leaving {player_two} at a dissavantage")
+
+        elif player_two_roll > player_one_roll and player_one_class == "Fighter":
             player_one_dmg = randint(1,6)
             player_two_dmg = randint(1,6)
             if player_two_dmg > player_one_dmg:
-                player_one_life -= (player_two_dmg - player_one_dmg)
+                player_one_life -= (player_two_dmg - player_one_dmg + 1)
                 print(f"{player_one} got hit by an arrow by {player_two}, they have {player_one_life} HP left")
             else:
                  print(f"{player_two} got the upper hand and pushed {player_one}, leaving {player_one} at a dissavantage")
@@ -53,7 +83,7 @@ while play_again.upper() == "Y":
             print(f"{player_one} and {player_two} is at a standoff, exhaustion gripping the two of them like a dagger.")
         
         
-
+    
         
         if player_two_life <= 0: 
             print(f"After a longfought battle, {player_one} grabs their dagger and finishes off {player_two}. They raise a fist up in the air in victory, knowing they were stronger.")
