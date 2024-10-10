@@ -2,7 +2,7 @@
 from random import randint 
 
 player_one = input("What is your name player one?: ")
-player_one_class = input("Pick your class: Rogue, Fighter, Paladin and Cleric")
+player_one_class = input("Pick your class: [Rogue or Fighter] ")
 # Rogue gets to reroll if they lose the dice roll and has a 20% to deal extra dmg
 # Fighter either gain a certain amount of HP or loses HP when they lose the dice roll and deals extra dmg depending on their missing HP
 # Paladin wins the dice roll, they can choose to debuff player two and buff themself
@@ -17,7 +17,24 @@ player_one_life = 10
 player_two_life = 10
 game_round = 0
 play_again = "Y"
+player_one_lvl = 1
+player_one_exp = 0
+exp_next_lvl = 100
+def earn_exp(amount):
+    player_one_exp += amount
+    print(f"{player_one} earned {amount} XP")
 
+    # If the player leveled up
+    if player_one_exp >= exp_next_lvl:
+        player_one_up()
+
+def player_one_up():
+    player_one_lvl += 1
+    # Excess exp points
+    player_one_exp -= exp_next_lvl
+    exp_next_lvl = int(exp_next_lvl * 1.5)
+    print(f"{player_one} leveled up to level {player_one_lvl}")
+    print(f"XP to next level: {exp_next_lvl}")
 while play_again.upper() == "Y":
     player_one_life = 10
     player_two_life = 10
@@ -61,7 +78,7 @@ while play_again.upper() == "Y":
 
 
         if player_one_roll > player_two_roll and player_one_class == "Fighter":
-            player_one_dmg = randint(1,4)
+            player_one_dmg = randint(1,5)
             player_two_dmg = randint(1,6)
             if player_one_dmg > player_two_dmg:
                 player_two_life -= (player_one_dmg * crit_mult - player_two_dmg)
@@ -87,6 +104,10 @@ while play_again.upper() == "Y":
         
         if player_two_life <= 0: 
             print(f"After a longfought battle, {player_one} grabs their dagger and finishes off {player_two}. They raise a fist up in the air in victory, knowing they were stronger.")
+            player_one_exp += (80 + {game_round})
+            if player_one_exp > exp_next_lvl:
+                player_one_lvl += 1
+                print(f"{player_one} level increased to lvl {player_one_lvl}")
             play_again = "N"
         elif player_one_life <= 0:
             print(f"After a longfought battle, {player_two} grabs their dagger and finishes off {player_one}. They raise a fist up in the air in victory, knowing they were stronger.")
