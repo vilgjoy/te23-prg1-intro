@@ -1,4 +1,4 @@
-class Player:
+class Player: # Detta är ett test för att lära mig klasser (på ett ungefär)
     # Instead of making new variables every time, you can make a class to make the next smoother
     def __init__(self, name):
         self.name = name

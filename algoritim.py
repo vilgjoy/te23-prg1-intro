@@ -28,7 +28,7 @@ def earn_exp(amount):
     if player_one_exp >= exp_next_lvl:
         player_one_up()
 
-def player_one_up():
+def player_one_up(): 
     player_one_lvl += 1
     # Excess exp points
     player_one_exp -= exp_next_lvl
