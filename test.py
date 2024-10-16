@@ -1,6 +1,6 @@
 # Detta är bara för att testa klasser, behöver inte se detta. algoritim.py är uppgiften.
 from random import randint
-class opponent:
+class Opponent:
     def __init__(self, name, health):
         self.name = name
         self.health = health
@@ -26,8 +26,8 @@ class Player:
         print("You got the upper hand")
         print("1. Attack")
         print("2. Defend")
-        print("3. Use magic")
-        print("4. Use skill")
+        print("3. Use Magic")
+        print("4. Use Skill")
 
         choice = input("[1. 2. 3. 4.] ")
 
@@ -40,7 +40,7 @@ class Player:
         elif choice == "4":
             return "use skill"
         else:
-            return "Attack"
+            return "attack"
     
     def attack(self, opponent):
         # Player attacks the opponent
@@ -72,76 +72,78 @@ class Player:
         if self.xp >= self.xp_to_next_level:
             self.level_up()
     
-    def combat(player, opponent):
-        # Combat between player and enemy
-        turn = randint.choice(["player", "opponent"]) # 50/50 chance who goes first
-        print(f"The {turn} shall begin the fight!")
-
-        while player.health > 0 and opponent.health > 0:
-            if turn == "player":
-                print("\n--- Player's Turn ---")
-                action = player.choose_action()
-
-                if action == "attack":
-                    damage = player.attack(opponent)
-                    opponent.health -= damage
-                elif action == "defend":
-                    defense_modifier = player.defend()
-                elif action == "magic":
-                    damage = player.use_magic(opponent)
-                    opponent.health -= damage
-                elif action == "skill":
-                    damage = player.use_skill(opponent)
-                    opponent.health -= damage
-                
-                if opponent.health <= 0:
-                    print(f"{opponent.name} has been defeated")
-                    break
-
-                turn = "opponent" # Switch to enemy turn
-            
-            else:
-                print("\n--- Opponent's Turn")
-                damage = opponent.attack(player)
-
-                if 'defense_modifier' in locals():
-                    damage *= defense_modifier # Apply defense modifier if player defended the previous turn
-                    del defense_modifier # Reset defense modifier after use
-                
-                player.health -= damage
-
-                if player.health <= 0:
-                    print(f"{player.name} has been defeated!")
-                    break
-
-                turn = "player" # Switch to players turn
-
-            
-    
     def level_up(self): 
         self.level += 1
         self.xp -= self.xp_to_next_level # Reset XP, carry over excess XP
         self.xp_to_next_level = int(self.xp_to_next_level * 1.5) # Increase XP needed for next lvl
         print(f"{self.name} leveled up to level {self.level}")
         print(f"XP to next level: {self.xp_to_next_level}")
-
         self.unlock_abilities()
     
     def unlock_abilities(self):
-        new_abilities = {
-            2: "Fireball" ,
-            3: "Healing" ,
-            5: "Lightning strike"
-        }
-        if self.level in new_abilities:
-            ability = new_abilities[self.level]
-            self.abilities.append(ability)
-            print(f"{self.name} unlocked a new ability: {ability}")
+        if self.level == 2 and "Fireball" not in self.abilities:
+            self.abilities.append("Fireball")
+            print(f"{self.name} has unlocked Fireball")
+        elif self.level == 3 and "Healing" not in self.abilities:
+            self.abilities.append("Healing")
+            print(f"{self.name} has unlocked Healing")
+        elif self.level == 5 and "Lightning Strike" not in self.abilities:
+            self.abilities.append("Lightning Strike")
+            print(f"{self.name} has unlocked Lightning Strike")
 
     def display_status(self):
         print(f"Player: {self.name}, XP: {self.xp}/{self.xp_to_next_level}")
+        
+def combat(player, opponent):
+    # Combat between player and enemy
+    turn = randint.choice(["player", "opponent"]) # 50/50 chance who goes first
+    print(f"The {turn} shall begin the fight!")
+
+    while player.health > 0 and opponent.health > 0:
+        if turn == "player":
+            print("\n--- Player's Turn ---")
+            action = player.choose_action()
+
+            if action == "attack":
+                damage = player.attack(opponent)
+                opponent.health -= damage
+            elif action == "defend":
+                defense_modifier = player.defend()
+            elif action == "magic":
+                damage = player.use_magic(opponent)
+                opponent.health -= damage
+            elif action == "skill":
+                damage = player.use_skill(opponent)
+                opponent.health -= damage
+                
+            if opponent.health <= 0:
+                print(f"{opponent.name} has been defeated")
+                break
+
+            turn = "opponent" # Switch to enemy turn
+            
+        else:
+            print("\n--- Opponent's Turn")
+            damage = opponent.attack(player)
+
+            if 'defense_modifier' in locals():
+                damage *= defense_modifier # Apply defense modifier if player defended the previous turn
+                del defense_modifier # Reset defense modifier after use
+                
+            player.health -= damage
+
+            if player.health <= 0:
+                print(f"{player.name} has been defeated!")
+                break
+
+            turn = "player" # Switch to players turn
+
+        print(f"\n{player.name}'s health: {player.health}")
+        print(f"{opponent.name}'s health: {opponent.health}")
 
 
-player = Player(input("Whats your name?: "))
+player = Player(input("Whats your name?: "), 100)
+opponent = Opponent("Goblin", 80)
+combat =(Player, Opponent)
 player.earn_xp(120)
 player.display_status()
