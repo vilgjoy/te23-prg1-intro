@@ -1,4 +1,5 @@
-class Player: # Detta är ett test för att lära mig klasser (på ett ungefär)
+# Detta är bara för att testa klasser, behöver inte se detta. algoritim.py är uppgiften.
+class Player: 
     # Instead of making new variables every time, you can make a class to make the next smoother
     def __init__(self, name):
         self.name = name
@@ -38,6 +39,6 @@ class Player: # Detta är ett test för att lära mig klasser (på ett ungefär)
         print(f"Player: {self.name}, XP: {self.xp}/{self.xp_to_next_level}")
 
 
-player = Player(input("VWhats your name?: "))
+player = Player(input("Whats your name?: "))
 player.earn_xp(120)
 player.display_status()
