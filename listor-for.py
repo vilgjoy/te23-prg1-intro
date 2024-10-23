@@ -1,3 +1,4 @@
+from random import choice
 dishes = ["Pizza", "Pasta"]
 
 run = True

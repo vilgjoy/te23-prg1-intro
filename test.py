@@ -1,5 +1,6 @@
 # Detta är bara för att testa klasser, behöver inte se detta. algoritim.py är uppgiften.
 from random import randint
+from random import choice
 class Opponent:
     def __init__(self, name, health):
         self.name = name
@@ -7,7 +8,7 @@ class Opponent:
     
     def attack(self, player):
         # Opponent attacks player
-        damage = randint.(10,25)
+        damage = randint(10,25)
         print(f"{self.name} attacks {player.name} for {damage} damage!")
         return damage
     
@@ -96,7 +97,7 @@ class Player:
         
 def combat(player, opponent):
     # Combat between player and enemy
-    turn = randint.choice(["player", "opponent"]) # 50/50 chance who goes first
+    turn = randint.choice()(["player", "opponent"]) # 50/50 chance who goes first
     print(f"The {turn} shall begin the fight!")
 
     while player.health > 0 and opponent.health > 0:
@@ -118,6 +119,7 @@ def combat(player, opponent):
                 
             if opponent.health <= 0:
                 print(f"{opponent.name} has been defeated")
+                player.earn_xp(50)
                 break
 
             turn = "opponent" # Switch to enemy turn
@@ -141,9 +143,19 @@ def combat(player, opponent):
         print(f"\n{player.name}'s health: {player.health}")
         print(f"{opponent.name}'s health: {opponent.health}")
 
+def game_loop(player,turns):
+    for turn in range(1, turns + 1):
+        print(f"\n--- Turn {turn} ---")
+        player.take_turn()
+        player.display_status()
+
+
+
 
 player = Player(input("Whats your name?: "), 100)
 opponent = Opponent("Goblin", 80)
-combat =(Player, Opponent)
-player.earn_xp(120)
-player.display_status()
+combat(player, opponent)
+
+
+#player.earn_xp(120)
+#player.display_status()
