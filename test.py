@@ -97,7 +97,7 @@ class Player:
         
 def combat(player, opponent):
     # Combat between player and enemy
-    turn = randint.choice()(["player", "opponent"]) # 50/50 chance who goes first
+    turn = randint.choice(["player", "opponent"]) # 50/50 chance who goes first
     print(f"The {turn} shall begin the fight!")
 
     while player.health > 0 and opponent.health > 0:
