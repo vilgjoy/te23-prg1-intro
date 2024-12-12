@@ -1,6 +1,6 @@
 # Detta är bara för att testa klasser, behöver inte se detta. algoritim.py är uppgiften.
 from random import randint
-from random import choice
+
 class Opponent:
     def __init__(self, name, health):
         self.name = name
